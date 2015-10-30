@@ -1,0 +1,29 @@
+{
+    "appID": "",
+    "routes": {
+        "/": "index"
+    },
+    "pages": {
+        "index": {
+            "re": "^/*$",
+            "html": "index.html"
+        }
+    },
+    "errors": {
+        "not_found": {
+            "html": "html/404.html"
+        }
+    },
+    "modules": {
+        "products": {
+            "operations": {
+                "getProducts": {
+                    "file": "operations.js"
+                },
+                "getProduct": {
+                    "file": "operations.js"
+                }
+            }
+        }
+    }
+}

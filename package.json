@@ -1,0 +1,23 @@
+{
+  "name": "Miata-Dealer",
+  "version": "1.0.0",
+  "description": "React test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-browserify": "*",
+    "reactify": "*",
+    "babelify": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-bootstrap": "*",
+    "flux": "*",
+    "underscore": "*"
+  }
+}
