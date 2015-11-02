@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import ViewActions from '../actions/ViewActions';
 
 class ProductList extends React.Component {
@@ -17,8 +18,8 @@ class ProductList extends React.Component {
 			$list.stop().animate({width: "80px"}, 400);
 		});
 	}
-	productChanged(id) {
-		ViewActions.productChanged(id);
+	productChanged() {
+		ViewActions.productChanged(self.props.params.productId);
 	}
 	render() {
 		var self = this;
@@ -26,11 +27,13 @@ class ProductList extends React.Component {
 			<div className="listContainer" onMouseEnter={self.maximizeList} onMouseLeave={self.minimizeList}>
 				{self.props.products.map((product, index) => {
 					return (
-						<div key={index} className={ "listItem" + ((self.props.selectedProduct ? self.props.selectedProduct.id : "") === product.id ? " active" : "") } onClick={self.productChanged.bind(self, product.id)}>
-							<div className="image pull-left" style={{backgroundImage: "url(" + product.image + ")"}}></div>
-							<span className="title pull-left notShown">{product.title}</span>
-							<div className="clearfix"></div>
-						</div>
+						<Link to={"/products/" + product.id} key={index}>
+							<div className={ "listItem" + ((self.props.selectedProduct ? self.props.selectedProduct.id : "") === product.id ? " active" : "") }>
+								<div className="image pull-left" style={{backgroundImage: "url(" + product.image + ")"}}></div>
+								<span className="title pull-left notShown">{product.title}</span>
+								<div className="clearfix"></div>
+							</div>
+						</Link>
 					);	
 				})}
 			</div>

@@ -13,11 +13,13 @@
     "gulp-concat": "*",
     "gulp-browserify": "*",
     "reactify": "*",
-    "babelify": "*",
+    "babelify": "6.4.0",
     "react": "*",
+    "react-router": "*",
     "react-dom": "*",
     "react-bootstrap": "*",
     "flux": "*",
+    "history": "*",
     "underscore": "*"
   }
 }

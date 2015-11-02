@@ -1,6 +1,8 @@
 import React from 'react';
 import ViewActions from '../actions/ViewActions';
 
+import { Button, Image, Row, Col, Input } from 'react-bootstrap';
+
 class ProductDetailView extends React.Component {
 	constructor(props) {
 		super(props);
@@ -35,37 +37,33 @@ class ProductDetailView extends React.Component {
 			modelsLeft = selectedModel.inventory - self.props.cartContent[selectedModel.id].quantity;
 
 		return (
-			<div className="col-xs-6 col-xs-offset-3 productContainer">
-				<div className="row">
-					<div className="col-xs-12">
+			<Col xs={6} xsOffset={3} className="productContainer">
+				<Row>
+					<Col xs={12}>
 						<h3>{product.title}</h3>
 						<p>{product.description}</p>
-					</div>
-					<div className="col-sm-6">
-						<img src={product.image} className="thumbnail wide" />
-					</div>
-					<div className="col-sm-6">
-						<div className="form-group">
-							<label>Model</label>
-							<select onChange={self.modelChanged} value={product.models[product.models.indexOf(self.props.selectedModel)].id} className="form-control">
-								{product.models.map((model, index) => {
-									return (
-										<option key={index} value={model.id}>{model.type}</option>
-									);
-								})}
-							</select>
-						</div>
+					</Col>
+					<Col sm={6}>
+						<Image src={product.image} className="wide" thumbnail />
+					</Col>
+					<Col sm={6}>
+						<Input type="select" label="Model" onChange={self.modelChanged} value={product.models[product.models.indexOf(self.props.selectedModel)].id}>
+  							{product.models.map((model, index) => {
+								return (
+									<option key={index} value={model.id}>{model.type}</option>
+								);
+							})}
+						</Input>
 						<div className="mb-xs">
 							<strong>{"Price: $" + self.props.selectedModel.price}</strong>
 							<strong className="pull-right">{"Inventory: " + this.props.selectedModel.inventory}</strong>
 						</div>
-						<div onClick={self.addToCart.bind(self)} className="btn btn-success wide addButton" disabled={ modelsLeft ? "" : "disabled"}>
+						<Button bsStyle="success" onClick={self.addToCart.bind(self)} className="wide addButton" disabled={modelsLeft ? false : true}>
 							{ modelsLeft ? "+ Add to cart" : "Sold out"}
-						</div>
-					</div>
-					<div className="clearfix"></div>
-				</div>
-			</div>
+						</Button>
+					</Col>
+				</Row>
+			</Col>
 		);
 	}
 }

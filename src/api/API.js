@@ -39,7 +39,7 @@ class API {
 			if (err) { alert(err); }
 			var products = JSON.parse(response);
 			ServerActions.receivedProductList(products);
-			self.getProductData(products[0].id);
+			// self.getProductData(products[0].id);
 		});
 	}
 	getProductData(id) {

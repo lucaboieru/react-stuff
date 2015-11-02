@@ -1,11 +1,16 @@
 {
     "appID": "",
     "routes": {
-        "/": "index"
+        "/": "index",
+        "/products": "products"
     },
     "pages": {
         "index": {
             "re": "^/*$",
+            "html": "index.html"
+        },
+        "products": {
+            "re": "^/products/[^/]+/*$",
             "html": "index.html"
         }
     },

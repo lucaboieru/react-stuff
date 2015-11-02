@@ -1,6 +1,8 @@
 import React from 'react';
 import ViewActions from '../actions/ViewActions';
 
+import { Button, Row, Col } from 'react-bootstrap';
+
 class Cart extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,21 +17,23 @@ class Cart extends React.Component {
 		var self = this;
 		var products = self.props.cartContent;
 		return (
-			<div className={("row cartContainer" + (self.props.cartVisibility ? "" : " notShown"))}>
+			<Row className={("cartContainer" + (self.props.cartVisibility ? "" : " notShown"))}>
 				{ Object.keys(products).map((product, index) => {
 					return (
-						<div key={index} className="cartProduct col-xs-12 pb-s pt-s">
+						<Col xs={12} key={index} className="cartProduct pb-s pt-s">
 							<strong>{products[product].name}</strong>
 							<div>
 								<span>{products[product].type} x {products[product].quantity} - <strong>${ products[product].price * products[product].quantity }</strong></span>
 							</div>
-							<div data-id={products[product].id} onClick={self.removeFromCart.bind(self, product)} className="btn btn-danger btn-sm wide">- Remove</div>
-						</div>
+							<Button bsStyle="danger" bsSize="small" data-id={products[product].id} onClick={self.removeFromCart.bind(self, product)} className="wide">- Remove</Button>
+						</Col>
 					);
 				})}
 				<div className="clearfix"></div>
-				<div className="cartTotalContainer col-xs-12">Total: ${self.props.total}</div>
-			</div>
+				<Col xs={12} className="cartTotalContainer">
+					Total: ${self.props.total}
+				</Col>
+			</Row>
 		);
 	}
 }
