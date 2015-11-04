@@ -30,6 +30,14 @@ class ViewActions {
 			visible: visible
 		});
 	}
+	handleLogin(loginObj) {
+		API.login(loginObj);
+	}
+	handleLogout() {
+		Dispatcher.handleViewAction({
+			actionType: ActionConsts.USER_LOGGED_OUT
+		});
+	}
 }
 
 export default new ViewActions();

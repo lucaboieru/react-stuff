@@ -1,13 +1,14 @@
 import React from 'react';
-import ProductList from './ProductList.react';
-import ProductDetailView from './ProductDetailView.react';
-import Cart from './Cart.react';
-import API from '../api/API';
 
+import MenuComponent from './MenuComponent.react';
+import Cart from './Cart.react';
+
+import API from '../api/API';
 import ViewActions from '../actions/ViewActions';
 
 import ProductStore from '../stores/ProductStore';
 import CartStore from '../stores/CartStore';
+import LoginStore from '../stores/LoginStore';
 
 import { Grid, Row } from 'react-bootstrap';
 
@@ -25,38 +26,54 @@ class MainComponent extends React.Component {
 		// listen for data changes
 		ProductStore.addChangeListener(this.dataChanged);
 		CartStore.addChangeListener(this.dataChanged);
-
-		ViewActions.productChanged(this.props.params.productId);
+		LoginStore.addChangeListener(this.dataChanged);
 
 		// call the api to get product list
 		API.getProductList();
+	}
+	shouldComponentUpdate(nextProps, nextState) {
+		if (!this.state.isLoggedIn && nextState.isLoggedIn) {
+			var nextPathname = this.props.location.state ? this.props.location.state.nextPathname : "";
+			this.props.history.replaceState(null, nextPathname ? nextPathname : '/');
+			return false;
+		} else if (this.state.isLoggedIn && !nextState.isLoggedIn) {
+			this.props.history.replaceState(null, '/login');
+			return false;
+		}
+		return true;
 	}
 	dataChanged() {
 		this.setState(this.getCurrentState());
 	}
 	getCurrentState() {
 		return {
+			isLoggedIn: LoginStore.isLoggedIn(),
 			products: ProductStore.getProductList(),
 			selectedProduct: ProductStore.getSelectedProduct(),
 			selectedModel: ProductStore.getSelectedModel(),
 			cartContent: CartStore.getCartContent(),
 			cartTotal: CartStore.getTotal(),
 			cartVisibility: CartStore.getCartVisibility(),
-			id: this.props.params.productId
 		};
-	}
-	componentWillReceiveProps(nextProps) {
-		var id = nextProps.params.productId;
-		ViewActions.productChanged(id);
 	}
 	render() {
 		var self = this;
 		return (
 			<Grid fluid={true}>
 				<Row>
-					<ProductList products={self.state.products} selectedProduct={self.state.selectedProduct} />
-					<ProductDetailView id={self.state.id} cartContent={self.state.cartContent} products={self.state.products} selectedProduct={self.state.selectedProduct} selectedModel={self.state.selectedModel} />
-					<Cart selectedModel={this.state.selectedModel} cartContent={self.state.cartContent} cartVisibility={self.state.cartVisibility} total={this.state.cartTotal}/>
+					<MenuComponent isLoggedIn={self.state.isLoggedIn} />
+					<Cart cartContent={self.state.cartContent} cartVisibility={self.state.cartVisibility} cartTotal={self.state.cartTotal}/>
+					{
+						self.props.children && React.cloneElement(self.props.children, {
+							isLoggedIn: self.state.isLoggedIn,
+							products: self.state.products,
+							selectedProduct: self.state.selectedProduct,
+							selectedModel: self.state.selectedModel,
+							cartContent: self.state.cartContent,
+							cartTotal: self.state.cartTotal,
+							cartVisibility: self.state.cartVisibility
+						})
+					}
 				</Row>
 			</Grid>
 		);

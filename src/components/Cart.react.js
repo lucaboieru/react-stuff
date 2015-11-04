@@ -31,7 +31,7 @@ class Cart extends React.Component {
 				})}
 				<div className="clearfix"></div>
 				<Col xs={12} className="cartTotalContainer">
-					Total: ${self.props.total}
+					Total: ${self.props.cartTotal}
 				</Col>
 			</Row>
 		);

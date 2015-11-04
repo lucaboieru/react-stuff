@@ -29,6 +29,17 @@ function makeAjaxRequest (ajaxObj, callback) {
 }
 
 class API {
+    login(loginObj) {
+        var self = this;
+
+        makeAjaxRequest({
+            operation: "/@/login/login",
+            data: loginObj
+        }, (err, response) => {
+            if (err) return alert(err);
+            ServerActions.userLoggedIn(JSON.parse(response));
+        });
+    }
 	getProductList() {
 		var self = this;
 

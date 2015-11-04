@@ -14,6 +14,12 @@ class ServerActions {
 			product: product
 		});
 	}
+	userLoggedIn(loginObj) {
+		Dispatcher.handleServerAction({
+			actionType: ActionConsts.USER_LOGGED_IN,
+			loginObj: loginObj
+		});
+	}
 }
 
 export default new ServerActions();

@@ -9,17 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "*",
-    "gulp-concat": "*",
-    "gulp-browserify": "*",
-    "reactify": "*",
     "babelify": "6.4.0",
-    "react": "*",
-    "react-router": "*",
-    "react-dom": "*",
-    "react-bootstrap": "*",
+    "cookie": "^0.2.3",
     "flux": "*",
+    "gulp": "*",
+    "gulp-browserify": "*",
+    "gulp-concat": "*",
     "history": "*",
+    "react": "*",
+    "react-bootstrap": "*",
+    "react-dom": "*",
+    "react-router": "*",
+    "reactify": "*",
     "underscore": "*"
   }
 }

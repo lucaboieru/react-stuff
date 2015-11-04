@@ -2,15 +2,36 @@
     "appID": "",
     "routes": {
         "/": "index",
-        "/products": "products"
+        "/home": "home",
+        "/home/me": "home",
+        "/products": "products",
+        "/about": "about",
+        "/login": "login",
+        "/logout": "logout"
     },
     "pages": {
         "index": {
-            "re": "^/*$",
+            "re": "^/$",
+            "html": "index.html"
+        },
+        "home": {
+            "re": "^/home$|^/home/me$",
             "html": "index.html"
         },
         "products": {
             "re": "^/products/[^/]+/*$",
+            "html": "index.html"
+        },
+        "about": {
+            "re": "^/about$",
+            "html": "index.html"
+        },
+        "login": {
+            "re": "^/login$",
+            "html": "index.html"
+        },
+        "logout": {
+            "re": "^/logout$",
             "html": "index.html"
         }
     },
@@ -26,6 +47,13 @@
                     "file": "operations.js"
                 },
                 "getProduct": {
+                    "file": "operations.js"
+                }
+            }
+        },
+        "login": {
+            "operations": {
+                "login": {
                     "file": "operations.js"
                 }
             }

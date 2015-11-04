@@ -6,6 +6,9 @@ import { Button, Image, Row, Col, Input } from 'react-bootstrap';
 class ProductDetailView extends React.Component {
 	constructor(props) {
 		super(props);
+
+		var id = this.props.params.productId;
+		ViewActions.productChanged(id);
 	}
 	modelChanged(event) {
 		ViewActions.modelChanged(event.target.value);
@@ -24,11 +27,11 @@ class ProductDetailView extends React.Component {
 	}
 	render() {
 		var self = this;
-
 		var product = self.props.selectedProduct;
+
 		// product hasn't loaded yet
 		if (!product) {
-			return (<div></div>);
+			return null;
 		}
 
 		var selectedModel = self.props.selectedModel;
@@ -58,9 +61,14 @@ class ProductDetailView extends React.Component {
 							<strong>{"Price: $" + self.props.selectedModel.price}</strong>
 							<strong className="pull-right">{"Inventory: " + this.props.selectedModel.inventory}</strong>
 						</div>
-						<Button bsStyle="success" onClick={self.addToCart.bind(self)} className="wide addButton" disabled={modelsLeft ? false : true}>
-							{ modelsLeft ? "+ Add to cart" : "Sold out"}
-						</Button>
+						{
+							self.props.isLoggedIn ?
+							(
+								<Button bsStyle="success" onClick={self.addToCart.bind(self)} className="wide addButton" disabled={modelsLeft ? false : true}>
+									{ modelsLeft ? "+ Add to cart" : "Sold out"}
+								</Button>
+							) : null
+						}
 					</Col>
 				</Row>
 			</Col>
